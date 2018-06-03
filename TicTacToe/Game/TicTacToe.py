@@ -13,6 +13,16 @@ b = board.Board()
 
 
 
-b.printBoardState()
-b.printBoardCoordinates()
+
+
+b.move("X",1)
+b.move("X",5)
+b.move("X",9)
+b.move("O",6)
+b.move("O",3)
+
 b.printBoardStateCoordinates()
+
+status = b.checkStatus("X")
+
+print(status)
