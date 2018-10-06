@@ -49,6 +49,12 @@ class Board:
         else:
             return(-1)
     
+    '''
+    Checks the status of the game
+        0 through 7 the status is a win
+        -1 means there is no winner and there are still spots left to play
+        9 is a cats game
+    '''
     def checkStatus(self,team):
         for n in range(3):
             if all(x == team for x in self.state[n][:]):
@@ -60,7 +66,9 @@ class Board:
                 return(6)
             if self.state[2][0] == team and self.state[0][2] == team:
                 return(7)
-        return(-1)
+        if any(" " in x for x in self.state):
+            return(-1)
+        return(9)
                 
 
 

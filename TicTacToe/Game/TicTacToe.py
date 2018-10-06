@@ -6,30 +6,34 @@ Created on Sun May  6 13:47:41 2018
 """
 
 import board;
+import teams;
 
 b = board.Board()
+gameTeams = teams.TeamList("X","O")
 
-b.move("X",1)
 
 def turn(board,team):
-    space = int(input("Select a space for team " + team + ": "))
-    result = b.move(team,space)
+    print("Current State of Board:")
+    b.printBoardStateCoordinates()
+    space = int(input("Select a space for team " + team.team + ": "))
+    result = b.move(team.team,space)
     if result == -1:
+        #print(result)
         print("Space already taken. Please select another spot.")
         turn(board,team)
-    print(result)
-    b.printBoardState()
+    if result != -1:
+    	#print(result)
+    	#b.printBoardState()
+    	status = b.checkStatus(team.team)
+    	if(status == 9):
+    		print("Cats Game")
+    		b.printBoardState()
+    	elif(0 <= status <= 7):
+    		print(team.team + " Wins!")
+    		b.printBoardState()
+    	else:
+    		turn(b,team.nextTeam)
 
-turn(b,"X")
 
-#b.move("X",1)
-#b.move("X",5)
-#b.move("X",9)
-#b.move("O",6)
-#b.move("O",3)
-#
-#b.printBoardStateCoordinates()
-#
-#status = b.checkStatus("X")
-#
-#print(status)
+turn(b,gameTeams.firstTeam)
+
