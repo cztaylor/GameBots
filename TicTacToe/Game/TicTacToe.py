@@ -7,6 +7,10 @@ Created on Sun May  6 13:47:41 2018
 
 import board;
 import teams;
+import team1;
+#import team2;
+
+t1 = team1.Team1("X")
 
 b = board.Board()
 gameTeams = teams.TeamList("X","O")
@@ -15,15 +19,17 @@ gameTeams = teams.TeamList("X","O")
 def turn(board,team):
     print("Current State of Board:")
     b.printBoardStateCoordinates()
-    space = int(input("Select a space for team " + team.team + ": "))
-    result = b.move(team.team,space)
+    if(team.team == "X"):
+    	result = b.move(team.team,t1.makeMove(b.state))
+    	#need to count invalid moves. if too many, team loses.
+    else:
+	    space = int(input("Select a space for team " + team.team + ": "))
+	    result = b.move(team.team,space)
+
     if result == -1:
-        #print(result)
         print("Space already taken. Please select another spot.")
         turn(board,team)
-    if result != -1:
-    	#print(result)
-    	#b.printBoardState()
+    else:
     	status = b.checkStatus(team.team)
     	if(status == 9):
     		print("Cats Game")
